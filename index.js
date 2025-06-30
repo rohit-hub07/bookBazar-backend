@@ -22,6 +22,7 @@ const corsOptions = {
     "http://localhost:8000",
     "http://localhost:5173",
     "https://book-bazar-frontend-83va.vercel.app",
+    "https://bookbazar-backend-gyov.onrender.com",
     "https://book-bazar-frontend-83va-rohit-hub07s-projects.vercel.app"
   ],
   credentials: true,
