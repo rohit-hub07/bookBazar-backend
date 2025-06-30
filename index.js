@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 const corsOptions = {
-    origin: ["http://localhost:8000", "http://localhost:5173","https://book-bazar-frontend-83va.vercel.app"],
+    origin: ["http://localhost:8000", "http://localhost:5173","https://book-bazar-frontend-83va-rohit-hub07s-projects.vercel.app"],
     credentials: true,
 }
 app.use(
