@@ -21,9 +21,9 @@ const corsOptions = {
   origin: [
     "http://localhost:8000",
     "http://localhost:5173",
-    "https://book-bazar-frontend-83va.vercel.app",
+    "https://book-bazar-frontend-9q7i.vercel.app",
+    "https://bookbazar-backend-ap9n.onrender.com/",
     "https://bookbazar-backend-ap9n.onrender.com",
-    "https://book-bazar-frontend-83va-rohit-hub07s-projects.vercel.app"
   ],
   credentials: true,
 };
