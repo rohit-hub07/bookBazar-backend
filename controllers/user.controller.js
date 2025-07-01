@@ -146,7 +146,12 @@ export const loginController = async (req, res) => {
 
 export const logoutController = async (req, res) => {
   try {
-    res.cookie("token", "", {});
+    res.cookie("token", "", {
+      httpsOnly: true,
+      sameSite: "None",
+      secure: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
     res.status(200).json({
       message: "Logged out successfully",
       success: true,
