@@ -18,15 +18,18 @@ export const deleteReviewController = async (req, res) => {
         success: false,
       });
     }
-    
-    if (loggedInUserId._id.toString() !== review.user._id.toString() && loggedInUserId.role !== "admin") {
+
+    if (
+      loggedInUserId._id.toString() !== review.user._id.toString() &&
+      loggedInUserId.role !== "admin"
+    ) {
       return res.status(403).json({
         message: "You can not delete other's review!",
         success: false,
       });
     }
 
-    if(loggedInUserId._id.toString() == review.user._id.toString()){
+    if (loggedInUserId._id.toString() == review.user._id.toString()) {
       isOwner = true;
     }
 
@@ -48,7 +51,7 @@ export const deleteReviewController = async (req, res) => {
       isOwner,
     });
   } catch (error) {
-    console.log("Error deleting the review", error);
+    // console.log("Error deleting the review", error);
     return res.status(404).json({
       message: "Error deleting the review!",
       success: false,
@@ -66,17 +69,15 @@ export const viewReviewController = async (req, res) => {
         success: false,
       });
     }
-    const review = await Review.find({ book: id }).populate(
-      "user"
-    );
-    console.log("review:", review);
+    const review = await Review.find({ book: id }).populate("user");
+    // console.log("review:", review);
     res.status(200).json({
       message: "Reviews fetched successfully",
       success: true,
       allReview: review,
     });
   } catch (error) {
-    console.log("Error fetching reviews", error);
+    // console.log("Error fetching reviews", error);
     return res.status(500).json({
       success: false,
       message: "Error fetching reviews!",

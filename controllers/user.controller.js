@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export const registerController = async (req, res) => {
-  const { name, email, password,role } = req.body;
+  const { name, email, password, role } = req.body;
   try {
     if (!name || !email || !password) {
       return res.status(400).json({
@@ -24,7 +24,7 @@ export const registerController = async (req, res) => {
       name,
       email,
       password,
-      role
+      role,
     });
     if (!newUser) {
       return res
@@ -36,7 +36,7 @@ export const registerController = async (req, res) => {
       process.env.SECRET_JWT,
       { expiresIn: "24h" }
     );
-    console.log("Token of jwt: ", token);
+    // console.log("Token of jwt: ", token);
     const cookieOptions = {
       httpOnly: true,
       secure: true,
@@ -44,8 +44,8 @@ export const registerController = async (req, res) => {
       maxAge: 24 * 60 * 60 * 1000,
     };
     res.cookie("token", token, cookieOptions);
-    console.log("New user: ", newUser);
-    console.log("res.cookie", res.cookie?.token);
+    // console.log("New user: ", newUser);
+    // console.log("res.cookie", res.cookie?.token);
 
     res.status(201).json({
       message: "User created successfully!",
@@ -53,7 +53,7 @@ export const registerController = async (req, res) => {
       newUser,
     });
   } catch (error) {
-    console.log("Error registering user");
+    // console.log("Error registering user");
     res.status(500).json({
       success: false,
       message: "Error registering user!",
@@ -70,7 +70,7 @@ export const userProfileController = async (req, res) => {
         success: false,
       });
     }
-    console.log("currentUserId : ", currentUserId);
+    // console.log("currentUserId : ", currentUserId);
     const currUser = await User.findById({ _id: currentUserId });
     if (!currUser) {
       return res.status(401).json({
@@ -81,14 +81,14 @@ export const userProfileController = async (req, res) => {
     res.status(200).json({
       currUser,
       message: "Data fetched successfully",
-      success: true
-    })
+      success: true,
+    });
   } catch (error) {
-    console.log("Error fetching user data");
+    // console.log("Error fetching user data");
     return res.status(401).json({
       message: "Error fetching user data",
       success: false,
-    })
+    });
   }
 };
 
@@ -103,7 +103,7 @@ export const loginController = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
-    console.log("Login user details: ", user);
+    // console.log("Login user details: ", user);
     if (!user) {
       return res.status(401).json({
         message: "User doesn't exist!",
@@ -111,7 +111,7 @@ export const loginController = async (req, res) => {
     }
 
     const isMatched = await bcrypt.compare(password, user.password);
-    console.log("IsMathced: ", isMatched);
+    // console.log("IsMathced: ", isMatched);
     if (!isMatched) {
       return res
         .status(400)
@@ -136,7 +136,7 @@ export const loginController = async (req, res) => {
       user,
     });
   } catch (error) {
-    console.log("error while logging", error);
+    // console.log("error while logging", error);
     return res.status(400).json({
       message: "Error while logging!",
       success: false,
@@ -157,7 +157,7 @@ export const logoutController = async (req, res) => {
       success: true,
     });
   } catch (error) {
-    console.log("Error while logging out", error);
+    // console.log("Error while logging out", error);
     return res.status(400).json({
       message: "Somethinng went wrong!",
     });

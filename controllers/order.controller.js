@@ -24,9 +24,9 @@ export const placeOrdersController = async (req, res) => {
       });
     }
 
-    console.log("Book details inside order: ", book);
+    // console.log("Book details inside order: ", book);
     const loggedInUser = await getCurrUser(req.userId);
-    console.log("LoggedInuser: ", loggedInUser);
+    // console.log("LoggedInuser: ", loggedInUser);
     const order = await Orders.create({
       bookDetail: book,
       user: loggedInUser,
@@ -39,20 +39,20 @@ export const placeOrdersController = async (req, res) => {
       });
     }
 
-    console.log("Placed order: ", order);
+    // console.log("Placed order: ", order);
     await order.save();
 
     book.purchasedBy.push(loggedInUser);
     await book.save();
 
-    console.log("Book inside placeorder: ", book);
+    // console.log("Book inside placeorder: ", book);
     res.status(200).json({
       message: "Order placed successfully",
       success: true,
       order,
     });
   } catch (error) {
-    console.log("Error while ordering", error);
+    // console.log("Error while ordering", error);
     return res.status(500).json({
       success: false,
       message: "Error while ordering!",
@@ -82,7 +82,7 @@ export const allOrdersController = async (req, res) => {
       const allOrders = await Orders.find({ user: loggedInUser._id })
         .populate({ path: "user", select: "-password" })
         .populate("bookDetail");
-      console.log("inside orders of current user: ", allOrders);
+      // console.log("inside orders of current user: ", allOrders);
       if (!allOrders) {
         return res.status(404).json({
           message: "No order available!",
@@ -96,7 +96,7 @@ export const allOrdersController = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("Error while fetching orders", error);
+    // console.log("Error while fetching orders", error);
     return res.status(404).json({
       message: "No order available!",
       success: false,
@@ -128,7 +128,7 @@ export const getOrderDetailsController = async (req, res) => {
       orderDetails,
     });
   } catch (error) {
-    console.log("Error getting the order details", error);
+    // console.log("Error getting the order details", error);
     return res.status(500).json({
       message: "Error getting the order details",
       success: false,
